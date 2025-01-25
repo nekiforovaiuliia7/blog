@@ -47,6 +47,16 @@ class Subscription(db.Model):
 def load_user(user_id):
     return User.query.get(int(user_id))
 
+@app.route('/post/<int:post_id>/comment', methods=['POST'])
+@login_required
+def add_comment(post_id):
+    content = request.form['content']
+    comment = Comment(content=content, user_id=current_user.id, post_id=post_id)
+    db.session.add(comment)
+    db.session.commit()
+    flash('Комментарий добавлен!', 'success')
+    return redirect(url_for('view_post', post_id=post_id))
+
 # Маршруты
 @app.route('/')
 def index():
