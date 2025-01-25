@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block content %}
+    <h2>{{ post.title }}</h2>
+    <p>{{ post.content }}</p>
+    <small>Автор: {{ post.author.username }} | {{ post.created_at }}</small>
+    <h3>Комментарии:</h3>
+    {% for comment in post.comments %}
+        <div class="comment">
+            <p>{{ comment.content }}</p>
+            <small>Автор: {{ comment.user.username }} | {{ comment.created_at }}</small>
+        </div>
+    {% endfor %}
+    {% if current_user.is_authenticated %}
+        <h3>Добавить комментарий:</h3>
+        <form method="POST" action="{{ url_for('add_comment', post_id=post.id) }}">
+            <textarea name="content" required></textarea>
+            <button type="submit">Отправить</button>
+        </form>
+    {% else %}
+        <p>Чтобы оставить комментарий, <a href="{{ url_for('login') }}">войдите</a>.</p>
+    {% endif %}
+{% endblock %}
