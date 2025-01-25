@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block content %}
+    <h2>Создать пост</h2>
+    <form method="POST" action="{{ url_for('create_post') }}">
+        <label for="title">Заголовок:</label>
+        <input type="text" id="title" name="title" required>
+        <label for="content">Содержание:</label>
+        <textarea id="content" name="content" required></textarea>
+        <label for="tags">Теги (через запятую):</label>
+        <input type="text" id="tags" name="tags">
+        <label>
+            <input type="checkbox" id="is_private" name="is_private"> Приватный пост
+        </label>
+        <button type="submit">Опубликовать</button>
+    </form>
+{% endblock %}
