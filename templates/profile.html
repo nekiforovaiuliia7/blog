@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block content %}
+    <h2>Профиль пользователя: {{ user.username }}</h2>
+    {% if current_user.is_authenticated and current_user.id != user.id %}
+        <a href="{{ url_for('subscribe', user_id=user.id) }}">Подписаться</a>
+    {% endif %}
+    <h3>Посты пользователя:</h3>
+    {% for post in posts %}
+        <div class="post">
+            <h3><a href="{{ url_for('view_post', post_id=post.id) }}">{{ post.title }}</a></h3>
+            <p>{{ post.content }}</p>
+            <small>{{ post.created_at }}</small>
+        </div>
+    {% endfor %}
+{% endblock %}
